@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/headers.schema.json",
+  "title": "Standard response headers",
+  "type": "object",
+  "properties": {
+    "API-version": {
+      "type": "string",
+      "description": "Full version number of the API",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "Link": {
+      "type": "string",
+      "examples": [
+        "<https://developer.overheid.nl/api/v1/apis?page=2>; rel='prev', <https://developer.overheid.nl/api/v1/apis?page=3>; rel='next'"
+      ],
+      "description": "A link header as defined in RFC 5988",
+      "externalDocs": {
+        "description": "RFC 5988",
+        "url": "https://tools.ietf.org/html/rfc5988"
+      } 
+    }
+  }
+}
