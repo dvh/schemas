@@ -14,7 +14,7 @@
       "type": "string"
     },
     "address": {
-      "$ref": "./address.schema.json"
+      "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/address.schema.json"
     }
   }
 }

@@ -15,11 +15,11 @@
     },
     "brewery": {
       "description": "The brewery that produces the beer",
-      "$ref": "./brewery.schema.json"
+      "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/brewery.schema.json"
     },
     "style": {
       "description": "The style of the beer",
-      "$ref": "./style.schema.json"
+      "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/style.schema.json"
     },
     "abv": {
       "description": "Alcohol by volume percentage",
