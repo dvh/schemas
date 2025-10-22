@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.1",
   "info": {
-    "title": "DON API v1",
+    "title": "Beer API v1",
     "description": "API of developer.overheid.nl (Developer Overheid).",
     "version": "1.0.0",
     "contact": {
@@ -42,10 +42,10 @@
           "200": {
             "headers": {
               "API-Version": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/API-Version"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/API-version"
               },
               "Link": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/Link"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/Link"
               }
             },
             "description": "OK",
@@ -77,7 +77,7 @@
           "200": {
             "headers": {
               "API-Version": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/API-Version"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/API-version"
               }
             },
             "description": "OK",
@@ -107,10 +107,10 @@
           "200": {
             "headers": {
               "API-Version": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/API-Version"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/API-version"
               },
               "Link": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/Link"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/Link"
               }
             },
             "description": "OK",
@@ -142,7 +142,7 @@
           "200": {
             "headers": {
               "API-Version": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/API-Version"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/API-version"
               }
             },
             "description": "OK",
@@ -172,10 +172,10 @@
           "200": {
             "headers": {
               "API-Version": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/API-Version"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/API-version"
               },
               "Link": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/Link"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/Link"
               }
             },
             "description": "OK",
@@ -207,7 +207,7 @@
           "200": {
             "headers": {
               "API-Version": {
-                "$ref": "https://static.developer.overheid.nl/adr/components.yaml#/headers/API-Version"
+                "$ref": "https://raw.githubusercontent.com/dvh/schemas/refs/heads/main/headers.schema.json#/properties/API-version"
               }
             },
             "description": "OK",

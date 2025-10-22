@@ -14,11 +14,7 @@
       "examples": [
         "<https://developer.overheid.nl/api/v1/apis?page=2>; rel='prev', <https://developer.overheid.nl/api/v1/apis?page=3>; rel='next'"
       ],
-      "description": "A link header as defined in RFC 5988",
-      "externalDocs": {
-        "description": "RFC 5988",
-        "url": "https://tools.ietf.org/html/rfc5988"
-      } 
+      "description": "A link header as defined in RFC 5988"
     }
   }
 }
