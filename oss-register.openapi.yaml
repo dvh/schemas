@@ -20,8 +20,34 @@ paths:
     get:
       operationId: listRepositories
       description: Generate markdown from Arazzo
+      summary: List repositories
       tags:
       - Beers
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - name: perPage
+          in: query
+          required: false
+          description: Aantal resultaten per pagina.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: organisation
+          in: query
+          required: false
+          description: Filter op organisatie (bijvoorbeeld de organisation URI).
+          schema:
+            type: string
+        - name: ids
+          in: query
+          required: false
+          description: Kommagescheiden lijst met repository-id's (uuid).
+          schema:
+            type: string
+            example: >-
+              9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
           "$ref": "./responses.yaml#/400"
@@ -44,3 +70,14 @@ paths:
             application/json:
               schema:
                 "$ref": "./schemas/Repository.schema.json"
+components:
+  parameters:
+    page:
+      name: page
+      in: query
+      required: false
+      description: Paginanummer (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1

@@ -15,10 +15,6 @@ servers:
 tags:
 - name: Beers
   description: Alle API operaties die bij beers horen.
-- name: Breweries
-  description: Alle API operaties die bij breweries horen.
-- name: Styles
-  description: Alle API operaties die bij styles horen.
 paths:
   /arazzo/markdown:
     post:
