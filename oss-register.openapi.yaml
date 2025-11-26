@@ -15,176 +15,34 @@ servers:
 tags:
 - name: Beers
   description: Alle API operaties die bij beers horen.
-- name: Breweries
-  description: Alle API operaties die bij breweries horen.
-- name: Styles
-  description: Alle API operaties die bij styles horen.
 paths:
-  /arazzo/markdown:
-    post:
-      operationId: arazzoMarkdown
+  /repositories:
+    get:
+      operationId: listRepositories
       description: Generate markdown from Arazzo
       tags:
       - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "./ArazzoInput.schema.json"
       responses:
         '400':
           "$ref": "./responses.yaml#/400"
         '200':
           headers:
-            API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+            allOf:
+              $ref: "./headers.yaml#/Pagination"
+            # API-Version:
+            #   "$ref": "./headers.yaml#/API-Version"
+            # Link:
+            #   "$ref": "./headers.yaml#/Link"
+            # Total-Count:
+            #   "$ref": "./headers.yaml#/Total-Count"
+            # Current-Page:
+            #   "$ref": "./headers.yaml#/Current-Page"
+            # Per-Page:
+            #   "$ref": "./headers.yaml#/Per-Page"
+            # Total-Pages:
+            #   "$ref": "./headers.yaml#/Total-Pages"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./Api.schema.json"
-  /arazzo/mermaid:
-    post:
-      operationId: arazzoMermaid
-      description: Generate mermaid diagram from Arazzo
-      tags:
-      - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "./ArazzoInput.schema.json"
-      responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '200':
-          headers:
-            API-Version:
-              "$ref": "./headers.yaml#/API-Version"
-          description: OK
-          content:
-            application/json:
-              schema:
-                "$ref": "./Api.schema.json"
-  /auth/clients:
-    post:
-      operationId: authClients
-      description: Generate API key for client
-      tags:
-      - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  description: Email address of the client
-              required:
-              - email
-      responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '200':
-          headers:
-            API-Version:
-              "$ref": "./headers.yaml#/API-Version"
-          description: OK
-          content:
-            application/json:
-              schema:
-                "$ref": "./Api.schema.json"
-  /oas/convert:
-    post:
-      operationId: convertOas
-      description: Convert OAS version to another OAS version
-      tags:
-      - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "./OasInput.schema.json"
-      responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '200':
-          headers:
-            API-Version:
-              "$ref": "./headers.yaml#/API-Version"
-          description: OK
-          content:
-            application/json:
-              schema:
-                "$ref": "./Api.schema.json"
-  /oas/bundle:
-    post:
-      operationId: bundleOas
-      description: Bundle OAS files into a single file
-      tags:
-      - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "./OasInput.schema.json"
-      responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '200':
-          headers:
-            API-Version:
-              "$ref": "./headers.yaml#/API-Version"
-          description: OK
-          content:
-            application/json:
-              schema:
-                "$ref": "./Api.schema.json"
-  /oas/validate:
-    post:
-      operationId: validateOas
-      description: Validate OAS file
-      tags:
-      - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "./OasInput.schema.json"
-      responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '200':
-          headers:
-            API-Version:
-              "$ref": "./headers.yaml#/API-Version"
-          description: OK
-          content:
-            application/json:
-              schema:
-                "$ref": "./Api.schema.json"
-  /oas/postman:
-    post:
-      operationId: postmanOas
-      description: Convert OAS file to Postman collection
-      tags:
-      - Beers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "./OasInput.schema.json"
-      responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '200':
-          headers:
-            API-Version:
-              "$ref": ./headers.yaml#/API-Version
-          description: OK
-          content:
-            application/json:
-              schema:
-                "$ref": "./Api.schema.json"
+                "$ref": "./Repository.schema.json"
