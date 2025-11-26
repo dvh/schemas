@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "./Api.schema.json"
+                "$ref": "./schemas/Api.schema.json"
     post:
       operationId: createApi
       description: Create API
@@ -53,7 +53,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "./ApiInput.schema.json"
+              $ref: "./schemas/ApiInput.schema.json"
       responses:
         '400':
           "$ref": "./responses.yaml#/400"
@@ -65,5 +65,5 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "./Api.schema.json"
+                "$ref": "./schemas/Api.schema.json"
   
