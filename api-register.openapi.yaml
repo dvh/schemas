@@ -29,6 +29,16 @@ paths:
           headers:
             API-Version:
               "$ref": "./headers.yaml#/API-Version"
+            Link:
+              "$ref": "./headers.yaml#/Link"
+            Total-Count:
+              "$ref": "./headers.yaml#/Total-Count"
+            Current-Page:
+              "$ref": "./headers.yaml#/Current-Page"
+            Per-Page:
+              "$ref": "./headers.yaml#/Per-Page"
+            Total-Pages:
+              "$ref": "./headers.yaml#/Total-Pages"
           description: OK
           content:
             application/json:
