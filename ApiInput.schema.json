@@ -7,18 +7,21 @@
   "allOf": [
     {
       "$ref": "./OasInput.schema.json"
-    }
-  ],
-  "properties": {
-    "gitOrganisationUrl": {
-      "type": "string",
-      "format": "uri",
-      "description": "URL van de git organisatie."
     },
-    "organisationUri": {
-      "type": "string",
-      "format": "uri",
-      "description": "URI van de TOOI organisatie."
+    {
+      "type": "object",
+      "properties": {
+        "gitOrganisationUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL van de git organisatie."
+        },
+        "organisationUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI van de TOOI organisatie."
+        }
+      }
     }
-  }
+  ]
 }
