@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/Repository.schema.json",
+  "title": "Repository",
+  "description": "An OSS repository from the catalog",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "./OasInput.schema.json"
+    }
+  ],
+  "properties": {
+    "gitOrganisationUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL van de git organisatie."
+    },
+    "organisationUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI van de TOOI organisatie."
+    }
+  }
+}

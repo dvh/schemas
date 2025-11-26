@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/Organisation.schema.json",
-  "title": "Organisation",
+  "$id": "https://example.com/OrganisationSummary.schema.json",
+  "title": "Organisation summary",
   "description": "An organisation from the catalog",
   "type": "object",
   "properties": {
@@ -10,7 +10,7 @@
       "type": "string"
     },
     "label": {
-      "description": "The name of the organisation",
+      "description": "The label of the organisation",
       "type": "string"
     }
   }

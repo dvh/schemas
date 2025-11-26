@@ -35,23 +35,23 @@ paths:
               schema:
                 "$ref": "./Api.schema.json"
     post:
-      operationId: arazzoMarkdown
-      description: Generate markdown from Arazzo
+      operationId: createApi
+      description: Create API
       tags:
       - APIs
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "./OasInput.schema.json"
+              $ref: "./ApiInput.schema.json"
       responses:
         '400':
           "$ref": "./responses.yaml#/400"
-        '200':
+        '201':
           headers:
             API-Version:
               "$ref": "./headers.yaml#/API-Version"
-          description: OK
+          description: Created
           content:
             application/json:
               schema:
