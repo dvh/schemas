@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/Repository.schema.json",
-  "title": "Repository",
+  "title": "API Input",
   "description": "An OSS repository from the catalog",
   "type": "object",
   "allOf": [
