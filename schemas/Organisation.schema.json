@@ -4,14 +4,5 @@
   "title": "Organisation",
   "description": "An organisation from the catalog",
   "type": "object",
-  "properties": {
-    "uri": {
-      "description": "The unique identifier for an organisation",
-      "type": "string"
-    },
-    "label": {
-      "description": "The name of the organisation",
-      "type": "string"
-    }
-  }
+  "allOf": [{ "$ref": "./OrganisationSummary.schema.json" }]
 }

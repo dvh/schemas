@@ -22,6 +22,18 @@ paths:
       description: Lijst van alle geregistreerde APIs
       tags:
       - APIs
+      parameters:
+        - $ref: './parameters.yaml#/page'
+        - $ref: './parameters.yaml#/perPage'
+        - $ref: './parameters.yaml#/organisation'
+        - name: ids
+          in: query
+          required: false
+          description: Kommagescheiden lijst met API-id's.
+          schema:
+            type: string
+            example: >-
+              9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
           "$ref": "./responses.yaml#/400"
@@ -54,6 +66,47 @@ paths:
           application/json:
             schema:
               $ref: "./schemas/ApiInput.schema.json"
+      responses:
+        '400':
+          "$ref": "./responses.yaml#/400"
+        '201':
+          headers:
+            API-Version:
+              "$ref": "./headers.yaml#/API-Version"
+          description: Created
+          content:
+            application/json:
+              schema:
+                "$ref": "./schemas/Api.schema.json"
+  
+  /organisations:
+    get:
+      operationId: listOrganisations
+      description: Lijst van alle publishers
+      tags:
+      - APIs
+      responses:
+        '400':
+          "$ref": "./responses.yaml#/400"
+        '200':
+          headers:
+            API-Version:
+              "$ref": "./headers.yaml#/API-Version"
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "./schemas/Organisation.schema.json"
+    post:
+      operationId: createOrganisation
+      description: Create Organisation
+      tags:
+      - APIs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/OrganisationSummary.schema.json"
       responses:
         '400':
           "$ref": "./responses.yaml#/400"

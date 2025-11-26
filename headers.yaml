@@ -12,14 +12,9 @@ Link:
   schema:
     type: string
     example: <https://developer.overheid.nl/api/v1/apis?page=2>; rel='prev', <https://developer.overheid.nl/api/v1/apis?page=3>; rel='next'
-  externalDocs:
-    description: W3C reference
-    url: https://www.w3.org/wiki/LinkHeader
-Total-Count:
-  description: "Total number of items available"
-  schema:
-    type: integer
-    example: 124
+    externalDocs:
+      description: W3C reference
+      url: https://www.w3.org/wiki/LinkHeader
 Current-Page:
   description: "Current page number"
   schema:
@@ -35,3 +30,8 @@ Total-Pages:
   schema:
     type: integer
     example: 13
+Total-Count:
+  description: "Total number of items available"
+  schema:
+    type: integer
+    example: 124
