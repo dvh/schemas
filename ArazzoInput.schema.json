@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/ArazzoInput.schema.json",
+  "title": "Arazzo Input",
+  "description": "Arazzo Input (either URL or raw content)",
+  "type": "object",
+  "properties": {
+    "arazzoBody": {
+      "type": "string",
+      "description": "The raw content of the Arazzo document"
+    },
+    "arazzoUrl": {
+      "type": "string",
+      "description": "The URL of the Arazzo document",
+      "format": "uri"
+    }
+  },
+  "oneOf": [
+    { "required": ["arazzoBody"] },
+    { "required": ["arazzoUrl"] }
+  ]
+}

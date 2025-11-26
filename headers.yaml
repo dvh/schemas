@@ -1,0 +1,17 @@
+API-Version:
+  description: Semver of this API
+  schema:
+    type: string
+    example: "1.0.0"
+    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+    externalDocs:
+      description: " /core/version-header: Return the full version number in a response header"
+      url: https://logius-standaarden.github.io/API-Design-Rules/#/core/version-header
+Link:
+  description: "Links to the previous, next, last or first pages"
+  schema:
+    type: string
+    example: <https://developer.overheid.nl/api/v1/apis?page=2>; rel='prev', <https://developer.overheid.nl/api/v1/apis?page=3>; rel='next'
+  externalDocs:
+    description: W3C reference
+    url: https://www.w3.org/wiki/LinkHeader

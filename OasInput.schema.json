@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/OasInput.schema.json",
+  "title": "OAS Input",
+  "description": "OAS Input (either URL or raw content)",
+  "type": "object",
+  "properties": {
+    "oasBody": {
+      "type": "string",
+      "description": "The raw content of the OAS document"
+    },
+    "oasUrl": {
+      "type": "string",
+      "description": "The URL of the OAS document",
+      "format": "uri"
+    }
+  },
+  "oneOf": [
+    { "required": ["oasBody"] },
+    { "required": ["oasUrl"] }
+  ]
+}

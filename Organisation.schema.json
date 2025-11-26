@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/Organisation.schema.json",
+  "title": "Organisation",
+  "description": "An organisation from the catalog",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The unique identifier for an organisation",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the organisation",
+      "type": "string"
+    }
+  }
+}

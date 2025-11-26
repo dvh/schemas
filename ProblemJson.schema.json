@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/ProblemJson.schema.json",
+  "title": "Problem JSON",
+  "description": "Problem JSON schema representing errors and status code",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location in the document where the error occurred"
+          }
+        },
+        "description": "List of errors encountered during processing"
+      }
+    },
+    "statusCode": {
+      "type": "integer",
+      "description": "HTTP status code representing the result of the operation"
+    }
+  }
+}

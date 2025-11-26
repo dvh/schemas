@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/Api.schema.json",
+  "title": "API",
+  "description": "An API from the catalog",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The unique identifier for an API",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the API",
+      "type": "string"
+    },
+    "organisation": {
+      "$ref": "./Organisation.schema.json"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+openapi: 3.1.1
+info:
+  contact:
+    email: developer.overheid@geonovum.nl
+    name: Team developer.overheid.nl
+    url: https://github.com/developer-overheid-nl/don-api-register/issues
+  description: API van het API-register (apis.developer.overheid.nl)
+  title: API-register API v1
+  version: 1.0.0
+servers:
+- description: Production
+  url: https://api.developer.overheid.nl/api-register/v1
+- description: Test
+  url: https://api-register.don.apps.digilab.network/api-register/v1
+tags:
+- name: APIs
+  description: Alle API operaties die bij beers horen.
+paths:
+  /apis:
+    get:
+      operationId: listApis
+      description: Lijst van alle geregistreerde APIs
+      tags:
+      - APIs
+      responses:
+        '400':
+          "$ref": "./responses.yaml#/400"
+        '200':
+          headers:
+            API-Version:
+              "$ref": "./headers.yaml#/API-Version"
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "./Api.schema.json"
+    post:
+      operationId: arazzoMarkdown
+      description: Generate markdown from Arazzo
+      tags:
+      - APIs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./OasInput.schema.json"
+      responses:
+        '400':
+          "$ref": "./responses.yaml#/400"
+        '200':
+          headers:
+            API-Version:
+              "$ref": "./headers.yaml#/API-Version"
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "./Api.schema.json"
+  
