@@ -16,7 +16,7 @@
     }
   },
   "oneOf": [
-    { "required": ["oasBody"], "not": { "required": ["oasUrl"] } },
-    { "required": ["oasUrl"], "not": { "required": ["oasBody"] } }
+    { "title": "OAS Body Only", "required": ["oasBody"], "not": { "required": ["oasUrl"] } },
+    { "title": "OAS URL Only", "required": ["oasUrl"], "not": { "required": ["oasBody"] } }
   ]
 }
