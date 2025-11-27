@@ -81,7 +81,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "./schemas/ApApiSummary.schema.json"
+                "$ref": "./schemas/ApiSummary.schema.json"
     post:
       security:
       - clientCredentials:
