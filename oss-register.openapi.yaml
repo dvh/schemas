@@ -24,9 +24,9 @@ paths:
       tags:
       - Beers
       parameters:
-        - $ref: './parameters.yaml#/page'
-        - $ref: './parameters.yaml#/perPage'
-        - $ref: './parameters.yaml#/organisation'
+        - $ref: './components/parameters.yaml#/page'
+        - $ref: './components/parameters.yaml#/perPage'
+        - $ref: './components/parameters.yaml#/organisation'
         - name: ids
           in: query
           required: false
@@ -37,23 +37,49 @@ paths:
               9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
             Link:
-              "$ref": "./headers.yaml#/Link"
+              "$ref": "./components/headers.yaml#/Link"
             Total-Count:
-              "$ref": "./headers.yaml#/Total-Count"
+              "$ref": "./components/headers.yaml#/Total-Count"
             Current-Page:
-              "$ref": "./headers.yaml#/Current-Page"
+              "$ref": "./components/headers.yaml#/Current-Page"
             Per-Page:
-              "$ref": "./headers.yaml#/Per-Page"
+              "$ref": "./components/headers.yaml#/Per-Page"
             Total-Pages:
-              "$ref": "./headers.yaml#/Total-Pages"
+              "$ref": "./components/headers.yaml#/Total-Pages"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Repository.schema.json"
+                type: array
+                items:
+                  "$ref": "./schemas/Repository.schema.json"
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes:
+            apis:read: Leestoegang op API's
+            apis:write: Schrijftoegang op API's
+            organisations:read: Leestoegang op organisaties
+          tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
+security:
+- clientCredentials: []
+tags:
+- name: Publieke endpoints
+  description: Publieke endpoints van het API-register, te benaderen met een API-key
+    of client credentials token.
+- name: Private endpoints
+  description: Private endpoints van het API-register, te benaderen met een client
+    credentials token.

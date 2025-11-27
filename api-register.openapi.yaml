@@ -4,7 +4,31 @@ info:
     email: developer.overheid@geonovum.nl
     name: Team developer.overheid.nl
     url: https://github.com/developer-overheid-nl/don-api-register/issues
-  description: API van het API-register (apis.developer.overheid.nl)
+  description: |
+    API van het API-register van developer.overheid.nl.
+
+    ## Untrusted clients (API-key)
+
+    Untrusted clients hebben geen schrijfrechten maar wel leesrechten. Requests kunnen, ook vanuit de browser, eenvoudig gedaan worden door de verkregen API-key aan elke request mee te geven met de `X-Api-Key` header:
+
+      `X-Api-Key`: `{API_KEY}` (vervang `{API_KEY}` met de verkregen API-key)
+
+    ## Trusted clients (client-credentials flow)
+
+    Trusted clientst hebben zowel schrijfrechten als leesrechten. Bij elke request moet er een `access_token`  meegestuurd worden. Deze token is 5 minuten geldig en kan verkregen worden door een `POST` request te doen naar `https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token` met de volgende Form URL Encoded body:
+
+    - `grant_type`: `client_credentials`
+    - `scope`: `apis:write apis:read organisations:read`
+    - `client_id`: `{CLIENT_ID}` (vervang `{CLIENT_ID}` met de client id die je van ons hebt ontvangen
+    - `client_secret`: `{CLIENT_SECRET}` (vervang `{CLIENT_SECRET}` met de client secret die je van ons hebt ontvangen
+
+    De verkregen `access_token` stuur je vervolgens op de volgende manier met de `Authorization` header naar een request mee:
+
+    `Authorization`: `Bearer {ACCESS_TOKEN}` (vervang `{ACCESS_TOKEN}` met de verkregen `access_token`)
+
+    ## Paginering
+
+    Paginering bij collecties vindt plaats door middel van de `Link` header. Er zijn verschillende libraries beschikbaar (zoals [parse-link-header](https://www.npmjs.com/package/parse-link-header) voor Javascript) die deze header kan parsen. Verder geven de volgende headers extra houvast om paginering in de client te implementeren: `X-Current-Page`, `X-Per-Page`, `X-Total-Count` en `X-Total-Pages`.
   title: API-register API v1
   version: 1.0.0
 servers:
@@ -12,20 +36,22 @@ servers:
   url: https://api.developer.overheid.nl/api-register/v1
 - description: Test
   url: https://api-register.don.apps.digilab.network/api-register/v1
-tags:
-- name: APIs
-  description: Alle API operaties die bij beers horen.
 paths:
   /apis:
     get:
-      operationId: listApis
-      description: Lijst van alle geregistreerde APIs
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - apis:read
       tags:
-      - APIs
+      - Publieke endpoints
+      summary: Alle API's ophalen
+      description: Alle API's ophalen
+      operationId: listApis
       parameters:
-        - $ref: './parameters.yaml#/page'
-        - $ref: './parameters.yaml#/perPage'
-        - $ref: './parameters.yaml#/organisation'
+        - $ref: './components/parameters.yaml#/page'
+        - $ref: './components/parameters.yaml#/perPage'
+        - $ref: './components/parameters.yaml#/organisation'
         - name: ids
           in: query
           required: false
@@ -36,62 +62,125 @@ paths:
               9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
             Link:
-              "$ref": "./headers.yaml#/Link"
+              "$ref": "./components/headers.yaml#/Link"
             Total-Count:
-              "$ref": "./headers.yaml#/Total-Count"
+              "$ref": "./components/headers.yaml#/Total-Count"
             Current-Page:
-              "$ref": "./headers.yaml#/Current-Page"
+              "$ref": "./components/headers.yaml#/Current-Page"
             Per-Page:
-              "$ref": "./headers.yaml#/Per-Page"
+              "$ref": "./components/headers.yaml#/Per-Page"
             Total-Pages:
-              "$ref": "./headers.yaml#/Total-Pages"
+              "$ref": "./components/headers.yaml#/Total-Pages"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                "$ref": "./schemas/ApApiSummary.schema.json"
     post:
-      operationId: createApi
-      description: Create API
+      security:
+      - clientCredentials:
+        - apis:write
       tags:
-      - APIs
+      - Private endpoints
+      summary: Registreer een nieuwe API met een OpenAPI URL
+      description: Registreer een nieuwe API met een OpenAPI URL
+      operationId: createApi
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              $ref: "./schemas/ApiInput.schema.json"
+      responses:
+        '400':
+          "$ref": "./components/responses.yaml#/400"
+        '201':
+          headers:
+            API-Version:
+              "$ref": "./components/headers.yaml#/API-Version"
+          description: Created
+          content:
+            application/json:
+              schema:
+                "$ref": "./schemas/Api.schema.json"
+  "/apis/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - apis:read
+      tags:
+      - Publieke endpoints
+      summary: Specifieke API ophalen
+      description: Specifieke API ophalen
+      operationId: retreiveApi
+      responses:
+        '200':
+          description: OK
+          headers:
+            API-Version:
+              "$ref": "./components/headers.yaml#/API-Version"
+          content:
+            application/json:
+              schema:
+                "$ref": "./schemas/Api.schema.json"
+        '404':
+          "$ref": "./components/responses.yaml#/404"
+    put:
+      security:
+      - clientCredentials:
+        - write
+      tags:
+      - Private endpoints
+      summary: Specifieke API updaten
+      description: Specifieke API updaten
+      operationId: updateApi
       requestBody:
         content:
           application/json:
             schema:
               $ref: "./schemas/ApiInput.schema.json"
       responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
-        '201':
+        '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
-          description: Created
+              "$ref": "./components/headers.yaml#/API-Version"
+          description: OK
           content:
             application/json:
               schema:
                 "$ref": "./schemas/Api.schema.json"
-  
+        '400':
+          "$ref": "./components/responses.yaml#/400"
+        '404':
+          "$ref": "./components/responses.yaml#/404"
   /organisations:
     get:
-      operationId: listOrganisations
-      description: Lijst van alle publishers
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - organisations:read
       tags:
-      - APIs
+      - Publieke endpoints
+      summary: Alle organisaties ophalen
+      description: Alle organisaties ophalen
+      operationId: listOrganisations
       responses:
-        '400':
-          "$ref": "./responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -109,14 +198,37 @@ paths:
               $ref: "./schemas/OrganisationSummary.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '201':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: Created
           content:
             application/json:
               schema:
                 "$ref": "./schemas/Api.schema.json"
-  
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          scopes:
+            apis:read: Leestoegang op API's
+            apis:write: Schrijftoegang op API's
+            organisations:read: Leestoegang op organisaties
+          tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
+security:
+- clientCredentials: []
+tags:
+- name: Publieke endpoints
+  description: Publieke endpoints van het API-register, te benaderen met een API-key
+    of client credentials token.
+- name: Private endpoints
+  description: Private endpoints van het API-register, te benaderen met een client
+    credentials token.

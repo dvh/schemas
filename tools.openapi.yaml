@@ -29,11 +29,11 @@ paths:
               $ref: "./schemas/ArazzoInput.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -52,11 +52,11 @@ paths:
               $ref: "./schemas/ArazzoInput.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -82,11 +82,11 @@ paths:
               - email
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -105,11 +105,11 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -128,11 +128,11 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -151,11 +151,11 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./headers.yaml#/API-Version"
+              "$ref": "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
@@ -174,13 +174,28 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./responses.yaml#/400"
+          "$ref": "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": ./headers.yaml#/API-Version
+              "$ref": ./components/headers.yaml#/API-Version
           description: OK
           content:
             application/json:
               schema:
                 "$ref": "./schemas/Api.schema.json"
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+security:
+- clientCredentials: []
+tags:
+- name: Publieke endpoints
+  description: Publieke endpoints van het API-register, te benaderen met een API-key
+    of client credentials token.
+- name: Private endpoints
+  description: Private endpoints van het API-register, te benaderen met een client
+    credentials token.
