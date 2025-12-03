@@ -4,5 +4,50 @@
   "title": "API",
   "description": "An API from the catalog",
   "type": "object",
-  "allOf": [{ "$ref": "./ApiSummary.schema.json" }]
+  "allOf": [
+    {
+      "$ref": "./ApiSummary.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "auth": {
+          "type": "array",
+          "description": "The authentication methods supported by the API",
+          "items": {
+            "type": "string",
+            "examples": ["OAuth2", "API Key"]
+          }
+        },
+        "docsUrl": {
+          "type": "string",
+          "description": "The URL to the documentation of the API",
+          "format": "uri",
+          "examples": ["https://developer.overheid.nl/kennisbank/"]
+        },
+        "servers": {
+          "type": "array",
+          "description": "The servers where the API is hosted",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "The URL of the server",
+                "examples": ["https://api.developer.overheid.nl"]
+              },
+              "description": {
+                "type": "string",
+                "description": "A description of the server",
+                "examples": ["Production server"]
+              }
+            },
+            "required": ["url", "description"]
+          }
+        }
+      },
+      "required": ["auth", "docsUrl", "servers"]
+    }
+  ]
 }

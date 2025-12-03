@@ -11,13 +11,57 @@
       "readOnly": true,
       "examples": ["dicF0B3HR"]
     },
-    "name": {
-      "description": "The name of the API",
+    "contact": {
+      "$ref": "./Contact.schema.json"
+    },
+    "title": {
+      "description": "The title of the API",
       "type": "string",
       "examples": ["API register API v1"]
     },
+    "description": {
+      "description": "The description of the API",
+      "type": "string",
+      "examples": [
+        "Dit is versie 1 van het API-register. Deze omschrijving kan ook Markdown bevatten."
+      ]
+    },
     "organisation": {
       "$ref": "./OrganisationSummary.schema.json"
+    },
+    "adrScore": {
+      "description": "The ADR score of the API",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "examples": [85]
+    },
+    "oasUrl": {
+      "description": "The URL of the OAS document",
+      "type": "string",
+      "format": "uri",
+      "examples": [
+        "https://api.developer.overheid.nl/api-register/v1/openapi.json"
+      ]
+    },
+    "lifecycle": {
+      "type": "object",
+      "description": "The lifecycle status of the API",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "The lifecycle status",
+          "enum": ["active", "deprecated", "sunset", "retired"],
+          "examples": ["active", "deprecated", "sunset", "retired"]
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the API",
+          "examples": ["1.0.0"]
+        }
+      },
+      "required": ["status", "version"]
     }
-  }
+  },
+  "required": ["id", "contact", "title", "description", "organisation", "adrScore", "oasUrl", "lifecycle"]
 }

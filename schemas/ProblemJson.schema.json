@@ -19,6 +19,7 @@
       "type": "array",
       "items": {
         "type": "object",
+        "description": "List of errors encountered during processing",
         "properties": {
           "in": {
             "type": "string",
@@ -41,8 +42,9 @@
             "example": "must be ISO 8601"
           }
         },
-        "description": "List of errors encountered during processing"
+        "required": ["in", "location", "code", "detail"]
       }
     }
-  }
+  },
+  "required": ["status", "title"]
 }

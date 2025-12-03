@@ -13,5 +13,6 @@
       "type": "string",
       "examples": ["developer.overheid.nl"]
     }
-  }
+  },
+  "required": ["uri", "label"]
 }
