@@ -31,18 +31,10 @@
     },
     "adrScore": {
       "description": "The ADR score of the API",
-      "type": "number",
+      "type": ["number", "null"],
       "minimum": 0,
       "maximum": 100,
       "examples": [85]
-    },
-    "oasUrl": {
-      "description": "The URL of the OAS document",
-      "type": "string",
-      "format": "uri",
-      "examples": [
-        "https://api.developer.overheid.nl/api-register/v1/openapi.json"
-      ]
     },
     "lifecycle": {
       "type": "object",
@@ -58,6 +50,12 @@
           "type": "string",
           "description": "The version of the API",
           "examples": ["1.0.0"]
+        },
+        "from": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "The date from which the lifecycle status is/has been deprecated, sunset or retired.",
+          "examples": ["2023-01-15"]
         }
       },
       "required": ["status", "version"]

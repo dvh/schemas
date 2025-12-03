@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/OasUrl.schema.json",
+  "title": "OAS Url",
+  "description": "The URL of the OAS document",
+  "type": "string",
+  "format": "uri",
+  "examples": ["https://api.developer.overheid.nl/api-register/v1/openapi.json"]
+}

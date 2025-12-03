@@ -10,10 +10,11 @@
       "format": "uuid",
       "readOnly": true
     },
-    "repositoryUrl": {
+    "url": {
       "type": "string",
       "format": "uri",
-      "description": "URL van de broncode repository."
+      "description": "URL van de broncode repository.",
+      "examples": ["https://github.com/developer-overheid-nl/don-site"]
     },
     "organisation": {
       "$ref": "./OrganisationSummary.schema.json"

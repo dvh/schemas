@@ -11,6 +11,14 @@
     {
       "type": "object",
       "properties": {
+        "oasUrl": {
+          "description": "The URL of the OAS document",
+          "type": "string",
+          "format": "uri",
+          "examples": [
+            "https://api.developer.overheid.nl/api-register/v1/openapi.json"
+          ]
+        },
         "auth": {
           "type": "array",
           "description": "The authentication methods supported by the API",

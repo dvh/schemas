@@ -4,21 +4,16 @@
   "title": "API Input",
   "description": "An OSS repository from the catalog",
   "type": "object",
-  "allOf": [
-    {
-      "$ref": "./OasInput.schema.json"
+  "properties": {
+    "oasUrl": {
+      "$ref": "./OasUrl.schema.json"
     },
-    {
-      "type": "object",
-      "properties": {
-        "organisationUri": {
-          "$ref": "./OrganisationUri.schema.json"
-        },
-        "contact": {
-          "$ref": "./Contact.schema.json"
-        }
-      },
-      "required": ["organisationUri"]
+    "organisationUri": {
+      "$ref": "./OrganisationUri.schema.json"
+    },
+    "contact": {
+      "$ref": "./Contact.schema.json"
     }
-  ]
+  },
+  "required": ["oasUrl", "organisationUri"]
 }

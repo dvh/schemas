@@ -135,6 +135,43 @@ paths:
             application/json:
               schema:
                 $ref: "./schemas/Api.schema.json"
+  /apis/_search:
+    get:
+      tags:
+      - Public endpoints
+      - APIs
+      summary: Search apis
+      description: Returns a list of repositories matching the search query.
+      operationId: searchApis
+      parameters:
+        - $ref: './components/parameters.yaml#/page'
+        - $ref: './components/parameters.yaml#/perPage'
+        - $ref: './components/parameters.yaml#/organisation'
+        - $ref: './components/parameters.yaml#/q'
+      responses:
+        '400':
+          $ref: "./components/responses.yaml#/400"
+        '200':
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+            Link:
+              $ref: "./components/headers.yaml#/Link"
+            Total-Count:
+              $ref: "./components/headers.yaml#/Total-Count"
+            Current-Page:
+              $ref: "./components/headers.yaml#/Current-Page"
+            Per-Page:
+              $ref: "./components/headers.yaml#/Per-Page"
+            Total-Pages:
+              $ref: "./components/headers.yaml#/Total-Pages"
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas/ApiSummary.schema.json"
   "/apis/{id}":
     parameters:
       - $ref: "./components/parameters.yaml#/id"
