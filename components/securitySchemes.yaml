@@ -7,13 +7,13 @@ clientCredentials:
   flows:
     clientCredentials:
       scopes:
-        apis:read: Leestoegang op API's
-        apis:write: Schrijftoegang op API's
-        organisations:read: Leestoegang op organisaties
-        organisations:write: Schrijftoegang op organisaties
-        tools: Toegang tot tools
-        repositories:read: Leestoegang op repositories
-        repositories:write: Schrijftoegang op repositories
-        gitOrganisations:read: Leestoegang op git organisaties
-        gitOrganisations:write: Schrijftoegang op git organisaties
+        apis:read: Read access to APIs
+        apis:write: Write access to APIIs
+        organisations:read: Read access to organisations
+        organisations:write: Write access to organisations
+        tools: Access to tools
+        repositories:read: Read access to repositories
+        repositories:write: Write access to repositories
+        gitOrganisations:read: Read access to git organisations
+        gitOrganisations:write: Write access to git organisations
       tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
