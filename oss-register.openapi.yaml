@@ -343,23 +343,8 @@ paths:
 components:
   securitySchemes:
     apiKey:
-      type: apiKey
-      name: X-Api-Key
-      in: header
+      $ref: "./components/securitySchemes.yaml#/apiKey"
     clientCredentials:
-      type: oauth2
-      flows:
-        clientCredentials:
-          scopes:
-            apis:read: Leestoegang op API's
-            apis:write: Schrijftoegang op API's
-            organisations:read: Leestoegang op organisaties
-            organisations:write: Schrijftoegang op organisaties
-            tools: Toegang tot tools
-            repositories:read: Leestoegang op repositories
-            repositories:write: Schrijftoegang op repositories
-            gitOrganisations:read: Leestoegang op git organisaties
-            gitOrganisations:write: Schrijftoegang op git organisaties
-          tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
+      $ref: "./components/securitySchemes.yaml#/clientCredentials"
 security:
 - clientCredentials: []

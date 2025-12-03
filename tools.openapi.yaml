@@ -198,8 +198,10 @@ paths:
 components:
   securitySchemes:
     apiKey:
-      type: apiKey
-      name: X-Api-Key
-      in: header
+      $ref: "./components/securitySchemes.yaml#/apiKey"
+    clientCredentials:
+      $ref: "./components/securitySchemes.yaml#/clientCredentials"
 security:
 - apiKey: []
+- clientCredentials:
+    - tools
