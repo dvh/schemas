@@ -13,8 +13,12 @@
       "properties": {
         "organisationUri": {
           "$ref": "./OrganisationUri.schema.json"
+        },
+        "contact": {
+          "$ref": "./Contact.schema.json"
         }
-      }
+      },
+      "required": ["organisationUri"]
     }
   ]
 }

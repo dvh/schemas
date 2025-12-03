@@ -302,7 +302,7 @@ paths:
       description: Alle organisaties ophalen
       operationId: listOrganisations
       responses:
-        '200':
+        "200":
           headers:
             API-Version:
               $ref: "./components/headers.yaml#/API-Version"
@@ -310,7 +310,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./schemas/Organisation.schema.json"
+                type: array
+                items:
+                  $ref: "./schemas/OrganisationSummary.schema.json"
     post:
       security:
       - clientCredentials:

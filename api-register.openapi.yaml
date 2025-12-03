@@ -211,7 +211,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./schemas/Organisation.schema.json"
+                type: array
+                items:
+                  $ref: "./schemas/OrganisationSummary.schema.json"
     post:
       security:
         - apiKey: []
