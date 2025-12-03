@@ -144,14 +144,6 @@ paths:
         - $ref: './components/parameters.yaml#/page'
         - $ref: './components/parameters.yaml#/perPage'
         - $ref: './components/parameters.yaml#/organisation'
-        - name: ids
-          in: query
-          required: false
-          description: Kommagescheiden lijst met repository-id's (uuid).
-          schema:
-            type: string
-            example: >-
-              9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
           $ref: "./components/responses.yaml#/400"

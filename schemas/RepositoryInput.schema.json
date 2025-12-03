@@ -11,9 +11,7 @@
       "description": "URL van de git organisatie."
     },
     "organisationUri": {
-      "type": "string",
-      "format": "uri",
-      "description": "URI van de TOOI organisatie."
+      "$ref": "./OrganisationUri.schema.json"
     }
   }
 }

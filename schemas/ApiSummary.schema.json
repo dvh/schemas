@@ -7,11 +7,13 @@
   "properties": {
     "id": {
       "description": "The unique identifier for an API",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "name": {
       "description": "The name of the API",
-      "type": "string"
+      "type": "string",
+      "examples": ["API register API v1"]
     },
     "organisation": {
       "$ref": "./OrganisationSummary.schema.json"

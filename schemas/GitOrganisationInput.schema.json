@@ -5,9 +5,7 @@
   "description": "A git organisation input for creating or updating a git organisation in the catalog",
   "properties": {
     "organisationUri": {
-      "type": "string",
-      "format": "uri",
-      "description": "URI of the organisation."
+      "$ref": "./OrganisationUri.schema.json"
     },
     "gitOrganisationUrl": {
       "type": "string",
