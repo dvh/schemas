@@ -4,42 +4,5 @@
   "title": "Repository",
   "description": "An OSS repository from the catalog",
   "type": "object",
-  "properties": {
-    "id": {
-      "type": "string",
-      "format": "uuid",
-      "readOnly": true
-    },
-    "url": {
-      "type": "string",
-      "format": "uri",
-      "description": "URL van de broncode repository.",
-      "examples": ["https://github.com/developer-overheid-nl/don-site"]
-    },
-    "organisation": {
-      "$ref": "./OrganisationSummary.schema.json"
-    },
-    "publicCodeUrl": {
-      "type": "string",
-      "description": "Url van publiccode.yaml in de repository."
-    },
-    "shortDescription": {
-      "type": "string",
-      "description": "Beschrijving van de repository afkomstig uit de git-hosting (bijvoorbeeld de repository description). Wordt gebruikt als alternatief wanneer geen publiccode.yaml beschikbaar is."
-    },
-    "name": {
-      "type": "string",
-      "description": "naam van de repository afkomstig uit de git-hosting. Wordt gebruikt als alternatief wanneer geen publiccode.yaml beschikbaar is."
-    },
-    "createdAt": {
-      "type": "string",
-      "format": "date-time",
-      "readOnly": true
-    },
-    "updatedAt": {
-      "type": "string",
-      "format": "date-time",
-      "readOnly": true
-    }
-  }
+  "allOf": [{ "$ref": "./RepositorySummary.schema.json" }]
 }

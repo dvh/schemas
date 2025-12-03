@@ -167,7 +167,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./schemas/Repository.schema.json"
+                  $ref: "./schemas/RepositorySummary.schema.json"
     post:
       tags:
       - Private endpoints
@@ -233,7 +233,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./schemas/Repository.schema.json"
+                  $ref: "./schemas/RepositorySummary.schema.json"
   "/repositories/{id}":
     parameters:
     - $ref: './components/parameters.yaml#/id'
