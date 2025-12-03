@@ -22,7 +22,7 @@
       "type": "string",
       "description": "Url van publiccode.yaml in de repository."
     },
-    "description": {
+    "shortDescription": {
       "type": "string",
       "description": "Beschrijving van de repository afkomstig uit de git-hosting (bijvoorbeeld de repository description). Wordt gebruikt als alternatief wanneer geen publiccode.yaml beschikbaar is."
     },

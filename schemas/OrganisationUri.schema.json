@@ -4,5 +4,6 @@
   "title": "Organisation URI",
   "description": "The unique identifier for an organisation",
   "type": "string",
+  "format": "uri",
   "examples": ["https://developer.overheid.nl"]
 }

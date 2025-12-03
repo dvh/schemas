@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/GitOrganisationUrl.schema.json",
+  "title": "Git organisation URI",
+  "description": "URL of the git organisation",
+  "type": "string",
+  "format": "uri",
+  "examples": ["https://github.com/developer-overheid-nl"]
+}

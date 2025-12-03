@@ -7,7 +7,7 @@
     "organisationUri": {
       "$ref": "./OrganisationUri.schema.json"
     },
-    "gitOrganisationUrl": {
+    "url": {
       "type": "string",
       "format": "uri",
       "description": "URL of the git organisation.",
