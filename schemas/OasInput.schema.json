@@ -12,7 +12,8 @@
     "oasUrl": {
       "type": "string",
       "description": "The URL of the OAS document",
-      "format": "uri"
+      "format": "uri",
+      "examples": ["https://api.developer.overheid.nl/api-register/v1/openapi.json"]
     }
   },
   "oneOf": [
