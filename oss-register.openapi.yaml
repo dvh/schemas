@@ -15,6 +15,13 @@ servers:
 tags:
 - name: Repositories
   description: Endpoints for listing and managing OSS repositories.
+- name: Publieke endpoints
+  description: Publieke endpoints van het API-register, te benaderen met een API-key
+    of client credentials token.
+- name: Private endpoints
+  description: Private endpoints van het API-register, te benaderen met een client
+    credentials token.
+
 paths:
   /repositories:
     get:
@@ -211,10 +218,3 @@ components:
           tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
 security:
 - clientCredentials: []
-tags:
-- name: Publieke endpoints
-  description: Publieke endpoints van het API-register, te benaderen met een API-key
-    of client credentials token.
-- name: Private endpoints
-  description: Private endpoints van het API-register, te benaderen met een client
-    credentials token.

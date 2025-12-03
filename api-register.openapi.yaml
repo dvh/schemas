@@ -192,8 +192,6 @@ paths:
       summary: Organisatie aanmaken
       description: Maak een nieuwe organisatie aan.
       operationId: createOrganisation
-      tags:
-      - Private endpoints
       requestBody:
         content:
           application/json:
