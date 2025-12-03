@@ -6,7 +6,31 @@ info:
     email: developer.overheid@geonovum.nl
     name: Team developer.overheid.nl
     url: https://github.com/developer-overheid-nl/don-tools-api/issues
-  description: Convenient tools for working with the OpenAPI Specification, Arazzo, Publiccode.yaml and more.
+  description: |
+    Convenient tools for working with the OpenAPI Specification, Arazzo, Publiccode.yaml and more.
+    
+    ## Auth
+
+    This API can be accessed with either an API key or a client credentials token.
+
+    ### API key
+    
+    Using an API key, you can access all endpoints of the Tools API.
+    These requests can also be made from the browser.
+    Simply pass the obtained API key with each request using the `X-Api-Key` header.
+
+    ### Client credentials token
+
+    You can also access all endpoints with a client credentials token.
+    To obtain the token, you need to perform a `POST` request to `https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token` with the following Form URL Encoded body:
+    - `grant_type`: `client_credentials`
+    - `scope`: `tools`
+    - `client_id`: the client id you received from us
+    - `client_secret`: the client secret you received from us
+    
+    Pass the obtained token with each request using the `Authorization` header. Example:
+
+    `Authorization`: `Bearer {ACCESS_TOKEN}` (replace `{ACCESS_TOKEN}` with the obtained `access_token`)
 servers:
 - description: Production
   url: https://api.developer.overheid.nl/tools/v1
@@ -68,7 +92,7 @@ paths:
             application/json:
               schema:
                 $ref: "./schemas/Api.schema.json"
-  /auth/api-keys:
+  /auth/clients:
     post:
       operationId: authApiKeys
       description: Generate API key for client

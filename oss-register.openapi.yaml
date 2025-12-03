@@ -9,7 +9,7 @@ info:
   description: |
     API to access the OSS register of developer.overheid.nl.
 
-    ## Authentication and authorization
+    ## Auth
 
     This API distinguishes between public and private endpoints.
     Public endpoints can be accessed with either an API key or a client credentials token.
