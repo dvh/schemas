@@ -289,6 +289,16 @@ paths:
           $ref: "./components/responses.yaml#/400"
         '404':
           $ref: "./components/responses.yaml#/404"
+    delete:
+      tags:
+      - Private endpoints
+      - Repositories
+      summary: Specifieke repository verwijderen
+      description: Specifieke repository verwijderen
+      operationId: deleteRepository
+      responses:
+        '204':
+          $ref: "./components/responses.yaml#/204"
   /organisations:
     get:
       security:
