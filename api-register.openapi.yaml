@@ -1,57 +1,83 @@
 openapi: 3.1.1
 info:
+  title: API register API v1
+  version: 1.0.0
   contact:
     email: developer.overheid@geonovum.nl
     name: Team developer.overheid.nl
     url: https://github.com/developer-overheid-nl/don-api-register/issues
   description: |
-    API van het API-register van developer.overheid.nl.
+    API to access the API register of developer.overheid.nl.
 
-    ## Untrusted clients (API-key)
+    ## Authentication and authorization
 
-    Untrusted clients hebben geen schrijfrechten maar wel leesrechten. Requests kunnen, ook vanuit de browser, eenvoudig gedaan worden door de verkregen API-key aan elke request mee te geven met de `X-Api-Key` header:
+    This API distinguishes between public and private endpoints.
+    Public endpoints can be accessed with either an API key or a client credentials token.
+    Private endpoints can only be accessed with a client credentials token.
 
-      `X-Api-Key`: `{API_KEY}` (vervang `{API_KEY}` met de verkregen API-key)
+    ### API key
+    
+    Using an API key, you can access all public endpoints of the API register.
+    These requests can also be made from the browser.
+    Simply pass the obtained API key with each request using the `X-Api-Key` header.
 
-    ## Trusted clients (client-credentials flow)
+    ### Client credentials token
 
-    Trusted clientst hebben zowel schrijfrechten als leesrechten. Bij elke request moet er een `access_token`  meegestuurd worden. Deze token is 5 minuten geldig en kan verkregen worden door een `POST` request te doen naar `https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token` met de volgende Form URL Encoded body:
-
+    Using a client credentials token, you can access both public and private endpoints of the API register.
+    To obtain the token, you need to perform a `POST` request to `https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token` with the following Form URL Encoded body:
     - `grant_type`: `client_credentials`
-    - `scope`: `apis:write apis:read organisations:read`
-    - `client_id`: `{CLIENT_ID}` (vervang `{CLIENT_ID}` met de client id die je van ons hebt ontvangen
-    - `client_secret`: `{CLIENT_SECRET}` (vervang `{CLIENT_SECRET}` met de client secret die je van ons hebt ontvangen
+    - `scope`: depending on the access you need and the client you are, you can request one or more of the following scopes:
+      - `apis:read`
+      - `apis:write`
+      - `organisations:read`
+      - `organisations:write`
+    - `client_id`: the client id you received from us
+    - `client_secret`: the client secret you received from us
+    
+    Pass the obtained token with each request using the `Authorization` header. Example:
 
-    De verkregen `access_token` stuur je vervolgens op de volgende manier met de `Authorization` header naar een request mee:
+    `Authorization`: `Bearer {ACCESS_TOKEN}` (replace `{ACCESS_TOKEN}` with the obtained `access_token`)
 
-    `Authorization`: `Bearer {ACCESS_TOKEN}` (vervang `{ACCESS_TOKEN}` met de verkregen `access_token`)
+    ## Pagination
 
-    ## Paginering
-
-    Paginering bij collecties vindt plaats door middel van de `Link` header. Er zijn verschillende libraries beschikbaar (zoals [parse-link-header](https://www.npmjs.com/package/parse-link-header) voor Javascript) die deze header kan parsen. Verder geven de volgende headers extra houvast om paginering in de client te implementeren: `X-Current-Page`, `X-Per-Page`, `X-Total-Count` en `X-Total-Pages`.
-  title: API-register API v1
-  version: 1.0.0
+    Pagination of collections is done using the `Link` header.
+    There are various libraries available (such as [parse-link-header](https://www.npmjs.com/package/parse-link-header) for Javascript) that can parse this header.
+    Additionally, the following headers provide extra support for implementing pagination in the client:
+    - `Current-Page`: the current page in the collection
+    - `Per-Page`: the number of items per page
+    - `Total-Count`: the total number of items
+    - `Total-Pages`: the total number of pages
 servers:
-- description: Production
-  url: https://api.developer.overheid.nl/api-register/v1
-- description: Test
-  url: https://api-register.don.apps.digilab.network/api-register/v1
+  - description: Production
+    url: https://api.developer.overheid.nl/api-register/v1
+  - description: Test
+    url: https://api-register.don.apps.digilab.network/api-register/v1
+tags:
+  - name: APIs
+    description: Endpoints for listing and managing APIs.
+  - name: Organisations
+    description: Endpoints for listing and managing organisations.
+  - name: Public endpoints
+    description: Public endpoints, accessible with an API key or client credentials token.
+  - name: Private endpoints
+    description: Private endpoints of the API register, accessible with a client credentials token.
 paths:
   /apis:
     get:
       security:
-      - apiKey: []
-      - clientCredentials:
-        - apis:read
+        - apiKey: []
+        - clientCredentials:
+            - apis:read
       tags:
-      - Publieke endpoints
+        - Public endpoints
+        - APIs
       summary: Alle API's ophalen
       description: Alle API's ophalen
       operationId: listApis
       parameters:
-        - $ref: './components/parameters.yaml#/page'
-        - $ref: './components/parameters.yaml#/perPage'
-        - $ref: './components/parameters.yaml#/organisation'
+        - $ref: "./components/parameters.yaml#/page"
+        - $ref: "./components/parameters.yaml#/perPage"
+        - $ref: "./components/parameters.yaml#/organisation"
         - name: ids
           in: query
           required: false
@@ -61,9 +87,9 @@ paths:
             example: >-
               9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
-        '400':
+        "400":
           $ref: "./components/responses.yaml#/400"
-        '200':
+        "200":
           headers:
             API-Version:
               $ref: "./components/headers.yaml#/API-Version"
@@ -84,22 +110,23 @@ paths:
                 $ref: "./schemas/ApiSummary.schema.json"
     post:
       security:
-      - clientCredentials:
-        - apis:write
+        - clientCredentials:
+            - apis:write
       tags:
-      - Private endpoints
+        - Private endpoints
+        - APIs
       summary: Registreer een nieuwe API
       description: Registreer een nieuwe API
       operationId: createApi
       requestBody:
-        content: 
+        content:
           application/json:
             schema:
               $ref: "./schemas/ApiInput.schema.json"
       responses:
-        '400':
+        "400":
           $ref: "./components/responses.yaml#/400"
-        '201':
+        "201":
           headers:
             API-Version:
               $ref: "./components/headers.yaml#/API-Version"
@@ -110,19 +137,20 @@ paths:
                 $ref: "./schemas/Api.schema.json"
   "/apis/{id}":
     parameters:
-    - $ref: './components/parameters.yaml#/id'
+      - $ref: "./components/parameters.yaml#/id"
     get:
       security:
-      - apiKey: []
-      - clientCredentials:
-        - apis:read
+        - apiKey: []
+        - clientCredentials:
+            - apis:read
       tags:
-      - Publieke endpoints
+        - Public endpoints
+        - APIs
       summary: Specifieke API ophalen
       description: Specifieke API ophalen
       operationId: retreiveApi
       responses:
-        '200':
+        "200":
           description: OK
           headers:
             API-Version:
@@ -131,14 +159,15 @@ paths:
             application/json:
               schema:
                 $ref: "./schemas/Api.schema.json"
-        '404':
+        "404":
           $ref: "./components/responses.yaml#/404"
     put:
       security:
-      - clientCredentials:
-        - apis:write
+        - clientCredentials:
+            - apis:write
       tags:
-      - Private endpoints
+        - Private endpoints
+        - APIs
       summary: Specifieke API updaten
       description: Specifieke API updaten
       operationId: updateApi
@@ -148,7 +177,7 @@ paths:
             schema:
               $ref: "./schemas/ApiInput.schema.json"
       responses:
-        '200':
+        "200":
           headers:
             API-Version:
               $ref: "./components/headers.yaml#/API-Version"
@@ -157,23 +186,24 @@ paths:
             application/json:
               schema:
                 $ref: "./schemas/Api.schema.json"
-        '400':
+        "400":
           $ref: "./components/responses.yaml#/400"
-        '404':
+        "404":
           $ref: "./components/responses.yaml#/404"
   /organisations:
     get:
       security:
-      - apiKey: []
-      - clientCredentials:
-        - organisations:read
+        - apiKey: []
+        - clientCredentials:
+            - organisations:read
       tags:
-      - Publieke endpoints
+        - Public endpoints
+        - Organisations
       summary: Alle organisaties ophalen
       description: Alle organisaties ophalen
       operationId: listOrganisations
       responses:
-        '200':
+        "200":
           headers:
             API-Version:
               $ref: "./components/headers.yaml#/API-Version"
@@ -184,11 +214,12 @@ paths:
                 $ref: "./schemas/Organisation.schema.json"
     post:
       security:
-      - apiKey: []
-      - clientCredentials:
-        - organisations:write
+        - apiKey: []
+        - clientCredentials:
+            - organisations:write
       tags:
-      - Private endpoints
+        - Private endpoints
+        - Organisations
       summary: Organisatie aanmaken
       description: Maak een nieuwe organisatie aan.
       operationId: createOrganisation
@@ -198,9 +229,9 @@ paths:
             schema:
               $ref: "./schemas/OrganisationSummary.schema.json"
       responses:
-        '400':
+        "400":
           $ref: "./components/responses.yaml#/400"
-        '201':
+        "201":
           headers:
             API-Version:
               $ref: "./components/headers.yaml#/API-Version"
@@ -231,11 +262,4 @@ components:
             gitOrganisations:write: Schrijftoegang op git organisaties
           tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
 security:
-- clientCredentials: []
-tags:
-- name: Publieke endpoints
-  description: Publieke endpoints van het API-register, te benaderen met een API-key
-    of client credentials token.
-- name: Private endpoints
-  description: Private endpoints van het API-register, te benaderen met een client
-    credentials token.
+  - clientCredentials: []

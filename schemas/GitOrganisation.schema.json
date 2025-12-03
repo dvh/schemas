@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/GitOrganisation.schema.json",
+  "title": "GitOrganisation",
+  "description": "A git organisation from the catalog",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "readOnly": true
+    },
+    "organisation": {
+      "$ref": "./OrganisationSummary.schema.json"
+    },
+    "codeHosting": {
+      "type": "array",
+      "items": {
+        "$ref": "./CodeHosting.schema.json"
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  }
+}

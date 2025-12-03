@@ -1,12 +1,54 @@
 openapi: 3.1.1
 info:
+  title: OSS-register API v1
+  version: 1.0.0
   contact:
     email: developer.overheid@geonovum.nl
     name: Team developer.overheid.nl
     url: https://github.com/developer-overheid-nl/don-oss-register/issues
-  description: API van het OSS-register (oss.developer.overheid.nl)
-  title: OSS-register API v1
-  version: 1.0.0
+  description: |
+    API to access the OSS register of developer.overheid.nl.
+
+    ## Authentication and authorization
+
+    This API distinguishes between public and private endpoints.
+    Public endpoints can be accessed with either an API key or a client credentials token.
+    Private endpoints can only be accessed with a client credentials token.
+
+    ### API key
+    
+    Using an API key, you can access all public endpoints of the API register.
+    These requests can also be made from the browser.
+    Simply pass the obtained API key with each request using the `X-Api-Key` header.
+
+    ### Client credentials token
+
+    Using a client credentials token, you can access both public and private endpoints of the OSS register.
+    To obtain the token, you need to perform a `POST` request to `https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token` with the following Form URL Encoded body:
+    - `grant_type`: `client_credentials`
+    - `scope`: depending on the access you need and the client you are, you can request one or more of the following scopes:
+      - `repositories:read`
+      - `repositories:write`
+      - `gitOrganisations:read`
+      - `gitOrganisations:write`
+      - `organisations:read`
+      - `organisations:write`
+    - `client_id`: the client id you received from us
+    - `client_secret`: the client secret you received from us
+    
+    Pass the obtained token with each request using the `Authorization` header. Example:
+
+    `Authorization`: `Bearer {ACCESS_TOKEN}` (replace `{ACCESS_TOKEN}` with the obtained `access_token`)
+
+    ## Pagination
+
+    Pagination of collections is done using the `Link` header.
+    There are various libraries available (such as [parse-link-header](https://www.npmjs.com/package/parse-link-header) for Javascript) that can parse this header.
+    Additionally, the following headers provide extra support for implementing pagination in the client:
+    - `Current-Page`: the current page in the collection
+    - `Per-Page`: the number of items per page
+    - `Total-Count`: the total number of items
+    - `Total-Pages`: the total number of pages
 servers:
 - description: Production
   url: https://api.developer.overheid.nl/oss-register/v1
@@ -14,19 +56,86 @@ servers:
   url: https://api-register.don.apps.digilab.network/oss-register/v1
 tags:
 - name: Repositories
-  description: Endpoints for listing and managing OSS repositories.
-- name: Publieke endpoints
-  description: Publieke endpoints van het API-register, te benaderen met een API-key
-    of client credentials token.
+  description: Endpoints for listing and managing repositories.
+- name: Organisations
+  description: Endpoints for listing and managing organisations.
+- name: Git organisations
+  description: Endpoints for listing and managing git organisations.
+- name: Public endpoints
+  description: Public endpoints, accessible with an API key or client credentials token.
 - name: Private endpoints
-  description: Private endpoints van het API-register, te benaderen met een client
-    credentials token.
-
+  description: Private endpoints of the API register, accessible with a client credentials token.
 paths:
+  /git-organisations:
+    get:
+      tags:
+      - Public endpoints
+      - Git organisations
+      summary: List git organisations
+      description: Geeft een lijst terug met git organisations die in het register
+        zijn opgenomen.
+      operationId: listGitOrganisations
+      parameters:
+        - $ref: './components/parameters.yaml#/page'
+        - $ref: './components/parameters.yaml#/perPage'
+        - $ref: './components/parameters.yaml#/organisation'
+      responses:
+        '400':
+          $ref: "./components/responses.yaml#/400"
+        '200':
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+            Link:
+              $ref: "./components/headers.yaml#/Link"
+            Total-Count:
+              $ref: "./components/headers.yaml#/Total-Count"
+            Current-Page:
+              $ref: "./components/headers.yaml#/Current-Page"
+            Per-Page:
+              $ref: "./components/headers.yaml#/Per-Page"
+            Total-Pages:
+              $ref: "./components/headers.yaml#/Total-Pages"
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas/GitOrganisation.schema.json"
+    post:
+      tags:
+      - Private endpoints
+      - Git organisations
+      summary: Create git organisation
+      description: Registreer een nieuwe git organisatie in het register.
+      operationId: createGitOrganisation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/GitOrganisationInput.schema.json"
+      responses:
+        '201':
+          description: Created
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/GitOrganisation.schema.json"
+        '400':
+          $ref: "./components/responses.yaml#/400"
+      security:
+      - clientCredentials:
+        - gitOrganisations:write
   /repositories:
     get:
       tags:
       - Public endpoints
+      - Repositories
       summary: List repositories
       description: Geeft een lijst terug met OSS repositories die in het register
         zijn opgenomen.
@@ -69,6 +178,7 @@ paths:
                   $ref: "./schemas/Repository.schema.json"
     post:
       tags:
+      - Private endpoints
       - Repositories
       summary: Create repository
       description: Registreer een nieuwe OSS repository in het register.
@@ -94,6 +204,44 @@ paths:
       security:
       - clientCredentials:
         - repositories:write
+  /repositories/_search:
+    get:
+      tags:
+      - Public endpoints
+      - Repositories
+      summary: Search repositories
+      description: Geeft een lijst terug met OSS repositories die in het register
+        zijn opgenomen.
+      operationId: searchRepositories
+      parameters:
+        - $ref: './components/parameters.yaml#/page'
+        - $ref: './components/parameters.yaml#/perPage'
+        - $ref: './components/parameters.yaml#/organisation'
+        - $ref: './components/parameters.yaml#/q'
+      responses:
+        '400':
+          $ref: "./components/responses.yaml#/400"
+        '200':
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+            Link:
+              $ref: "./components/headers.yaml#/Link"
+            Total-Count:
+              $ref: "./components/headers.yaml#/Total-Count"
+            Current-Page:
+              $ref: "./components/headers.yaml#/Current-Page"
+            Per-Page:
+              $ref: "./components/headers.yaml#/Per-Page"
+            Total-Pages:
+              $ref: "./components/headers.yaml#/Total-Pages"
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas/Repository.schema.json"
   "/repositories/{id}":
     parameters:
     - $ref: './components/parameters.yaml#/id'
@@ -103,6 +251,7 @@ paths:
       - clientCredentials:
         - repositories:read
       tags:
+      - Public endpoints
       - Repositories
       summary: Get repository by id
       description: Geeft één OSS repository terug op basis van het id.
@@ -124,6 +273,7 @@ paths:
       - clientCredentials:
         - repositories:write
       tags:
+      - Private endpoints
       - Repositories
       summary: Specifieke repository updaten
       description: Specifieke repository updaten
@@ -154,7 +304,8 @@ paths:
       - clientCredentials:
         - organisations:read
       tags:
-      - Publieke endpoints
+      - Public endpoints
+      - Organisations
       summary: Alle organisaties ophalen
       description: Alle organisaties ophalen
       operationId: listOrganisations
@@ -170,11 +321,11 @@ paths:
                 $ref: "./schemas/Organisation.schema.json"
     post:
       security:
-      - apiKey: []
       - clientCredentials:
         - organisations:write
       tags:
       - Private endpoints
+      - Organisations
       summary: Organisatie aanmaken
       description: Maak een nieuwe organisatie aan.
       operationId: createOrganisation

@@ -32,3 +32,10 @@ id:
   description: De unieke id de resource.
   schema:
     type: string
+q:
+  name: q
+  in: query
+  required: true
+  description: Zoekterm.
+  schema:
+    type: string

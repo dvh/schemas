@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/GitOrganisationInput.schema.json",
+  "title": "Git Organisation Input",
+  "description": "A git organisation input for creating or updating a git organisation in the catalog",
+  "properties": {
+    "organisationUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the organisation."
+    },
+    "gitOrganisationUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the git organisation.",
+      "example": "https://github.com/developer-overheid-nl"
+    }
+  }
+}
