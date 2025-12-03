@@ -1,36 +1,38 @@
 "400":
   headers:
     API-Version:
-      "$ref": "./headers.yaml#/API-Version"
-    Link:
-      "$ref": "./headers.yaml#/Link"
+      $ref: "./headers.yaml#/API-Version"
   description: Bad request
   content:
     application/problem+json:
       schema:
-        "$ref": "../schemas/ProblemJson.schema.json"
+        $ref: "../schemas/ProblemJson.schema.json"
 "204":
   headers:
     API-Version:
-      "$ref": "./headers.yaml#/API-Version"
+      $ref: "./headers.yaml#/API-Version"
   description: Removed
 "404":
   headers:
     API-Version:
-      "$ref": "./headers.yaml#/API-Version"
+      $ref: "./headers.yaml#/API-Version"
   description: Resource does not exist
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/ProblemJson.schema.json"
 "403":
   headers:
     API-Version:
-      "$ref": "./headers.yaml#/API-Version"
+      $ref: "./headers.yaml#/API-Version"
   description: Forbidden
 "401":
   headers:
     API-Version:
-      "$ref": "./headers.yaml#/API-Version"
+      $ref: "./headers.yaml#/API-Version"
   description: Unauthorized
 "501":
   headers:
     API-Version:
-      "$ref": "./headers.yaml#/API-Version"
+      $ref: "./headers.yaml#/API-Version"
   description: Method not implemented

@@ -21,7 +21,14 @@ organisation:
   name: organisation
   in: query
   required: false
-  description: Filter op organisatie (bijvoorbeeld de organisation URI).
+  description: Filter op organisatie.
   schema:
     type: string
     format: uri
+id:
+  name: id
+  in: path
+  required: true
+  description: De unieke id de resource.
+  schema:
+    type: string

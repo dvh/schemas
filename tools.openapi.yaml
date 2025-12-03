@@ -20,6 +20,7 @@ paths:
     post:
       operationId: arazzoMarkdown
       description: Generate markdown from Arazzo
+      summary: Generate markdown from Arazzo
       tags:
       - Beers
       requestBody:
@@ -29,20 +30,21 @@ paths:
               $ref: "./schemas/ArazzoInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   /arazzo/mermaid:
     post:
       operationId: arazzoMermaid
       description: Generate mermaid diagram from Arazzo
+      summary: Generate mermaid diagram from Arazzo
       tags:
       - Beers
       requestBody:
@@ -52,20 +54,21 @@ paths:
               $ref: "./schemas/ArazzoInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   /auth/clients:
     post:
       operationId: authClients
       description: Generate API key for client
+      summary: Generate API key for client
       tags:
       - Beers
       requestBody:
@@ -82,20 +85,21 @@ paths:
               - email
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   /oas/convert:
     post:
       operationId: convertOas
       description: Convert OAS version to another OAS version
+      summary: Convert OAS version to another OAS version
       tags:
       - Beers
       requestBody:
@@ -105,20 +109,21 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   /oas/bundle:
     post:
       operationId: bundleOas
       description: Bundle OAS files into a single file
+      summary: Bundle OAS files into a single file
       tags:
       - Beers
       requestBody:
@@ -128,20 +133,21 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   /oas/validate:
     post:
       operationId: validateOas
       description: Validate OAS file
+      summary: Validate OAS file
       tags:
       - Beers
       requestBody:
@@ -151,20 +157,21 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   /oas/postman:
     post:
       operationId: postmanOas
       description: Convert OAS file to Postman collection
+      summary: Convert OAS file to Postman collection
       tags:
       - Beers
       requestBody:
@@ -174,16 +181,16 @@ paths:
               $ref: "./schemas/OasInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": ./components/headers.yaml#/API-Version
+              $ref: ./components/headers.yaml#/API-Version
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
 components:
   securitySchemes:
     apiKey:
@@ -191,11 +198,4 @@ components:
       name: X-Api-Key
       in: header
 security:
-- clientCredentials: []
-tags:
-- name: Publieke endpoints
-  description: Publieke endpoints van het API-register, te benaderen met een API-key
-    of client credentials token.
-- name: Private endpoints
-  description: Private endpoints van het API-register, te benaderen met een client
-    credentials token.
+- apiKey: []

@@ -13,16 +13,17 @@ servers:
 - description: Test
   url: https://api-register.don.apps.digilab.network/oss-register/v1
 tags:
-- name: Beers
-  description: Alle API operaties die bij beers horen.
+- name: Repositories
+  description: Endpoints for listing and managing OSS repositories.
 paths:
   /repositories:
     get:
-      operationId: listRepositories
-      description: Generate markdown from Arazzo
-      summary: List repositories
       tags:
-      - Beers
+      - Public endpoints
+      summary: List repositories
+      description: Geeft een lijst terug met OSS repositories die in het register
+        zijn opgenomen.
+      operationId: listRepositories
       parameters:
         - $ref: './components/parameters.yaml#/page'
         - $ref: './components/parameters.yaml#/perPage'
@@ -37,28 +38,156 @@ paths:
               9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
             Link:
-              "$ref": "./components/headers.yaml#/Link"
+              $ref: "./components/headers.yaml#/Link"
             Total-Count:
-              "$ref": "./components/headers.yaml#/Total-Count"
+              $ref: "./components/headers.yaml#/Total-Count"
             Current-Page:
-              "$ref": "./components/headers.yaml#/Current-Page"
+              $ref: "./components/headers.yaml#/Current-Page"
             Per-Page:
-              "$ref": "./components/headers.yaml#/Per-Page"
+              $ref: "./components/headers.yaml#/Per-Page"
             Total-Pages:
-              "$ref": "./components/headers.yaml#/Total-Pages"
+              $ref: "./components/headers.yaml#/Total-Pages"
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  "$ref": "./schemas/Repository.schema.json"
+                  $ref: "./schemas/Repository.schema.json"
+    post:
+      tags:
+      - Repositories
+      summary: Create repository
+      description: Registreer een nieuwe OSS repository in het register.
+      operationId: createRepository
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/RepositoryInput.schema.json"
+      responses:
+        '201':
+          description: Created
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/Repository.schema.json"
+        '400':
+          $ref: "./components/responses.yaml#/400"
+      security:
+      - clientCredentials:
+        - repositories:write
+  "/repositories/{id}":
+    parameters:
+    - $ref: './components/parameters.yaml#/id'
+    get:
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - repositories:read
+      tags:
+      - Repositories
+      summary: Get repository by id
+      description: Geeft één OSS repository terug op basis van het id.
+      operationId: getRepositoryById
+      responses:
+        '200':
+          description: OK
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/Repository.schema.json"
+        '404':
+          $ref: "./components/responses.yaml#/404"
+    put:
+      security:
+      - clientCredentials:
+        - repositories:write
+      tags:
+      - Repositories
+      summary: Specifieke repository updaten
+      description: Specifieke repository updaten
+      operationId: updateRepository
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/RepositoryInput.schema.json"
+      responses:
+        '200':
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/Repository.schema.json"
+        '400':
+          $ref: "./components/responses.yaml#/400"
+        '404':
+          $ref: "./components/responses.yaml#/404"
+  /organisations:
+    get:
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - organisations:read
+      tags:
+      - Publieke endpoints
+      summary: Alle organisaties ophalen
+      description: Alle organisaties ophalen
+      operationId: listOrganisations
+      responses:
+        '200':
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/Organisation.schema.json"
+    post:
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - organisations:write
+      tags:
+      - Private endpoints
+      summary: Organisatie aanmaken
+      description: Maak een nieuwe organisatie aan.
+      operationId: createOrganisation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/OrganisationSummary.schema.json"
+      responses:
+        '400':
+          $ref: "./components/responses.yaml#/400"
+        '201':
+          headers:
+            API-Version:
+              $ref: "./components/headers.yaml#/API-Version"
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/Organisation.schema.json"
 components:
   securitySchemes:
     apiKey:
@@ -73,6 +202,12 @@ components:
             apis:read: Leestoegang op API's
             apis:write: Schrijftoegang op API's
             organisations:read: Leestoegang op organisaties
+            organisations:write: Schrijftoegang op organisaties
+            tools: Toegang tot tools
+            repositories:read: Leestoegang op repositories
+            repositories:write: Schrijftoegang op repositories
+            gitOrganisations:read: Leestoegang op git organisaties
+            gitOrganisations:write: Schrijftoegang op git organisaties
           tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
 security:
 - clientCredentials: []

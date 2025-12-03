@@ -62,34 +62,34 @@ paths:
               9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
             Link:
-              "$ref": "./components/headers.yaml#/Link"
+              $ref: "./components/headers.yaml#/Link"
             Total-Count:
-              "$ref": "./components/headers.yaml#/Total-Count"
+              $ref: "./components/headers.yaml#/Total-Count"
             Current-Page:
-              "$ref": "./components/headers.yaml#/Current-Page"
+              $ref: "./components/headers.yaml#/Current-Page"
             Per-Page:
-              "$ref": "./components/headers.yaml#/Per-Page"
+              $ref: "./components/headers.yaml#/Per-Page"
             Total-Pages:
-              "$ref": "./components/headers.yaml#/Total-Pages"
+              $ref: "./components/headers.yaml#/Total-Pages"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/ApiSummary.schema.json"
+                $ref: "./schemas/ApiSummary.schema.json"
     post:
       security:
       - clientCredentials:
         - apis:write
       tags:
       - Private endpoints
-      summary: Registreer een nieuwe API met een OpenAPI URL
-      description: Registreer een nieuwe API met een OpenAPI URL
+      summary: Registreer een nieuwe API
+      description: Registreer een nieuwe API
       operationId: createApi
       requestBody:
         content: 
@@ -98,23 +98,19 @@ paths:
               $ref: "./schemas/ApiInput.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '201':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: Created
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
   "/apis/{id}":
     parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: string
+    - $ref: './components/parameters.yaml#/id'
     get:
       security:
       - apiKey: []
@@ -130,17 +126,17 @@ paths:
           description: OK
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
         '404':
-          "$ref": "./components/responses.yaml#/404"
+          $ref: "./components/responses.yaml#/404"
     put:
       security:
       - clientCredentials:
-        - write
+        - apis:write
       tags:
       - Private endpoints
       summary: Specifieke API updaten
@@ -155,16 +151,16 @@ paths:
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Api.schema.json"
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '404':
-          "$ref": "./components/responses.yaml#/404"
+          $ref: "./components/responses.yaml#/404"
   /organisations:
     get:
       security:
@@ -180,17 +176,24 @@ paths:
         '200':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Organisation.schema.json"
+                $ref: "./schemas/Organisation.schema.json"
     post:
-      operationId: createOrganisation
-      description: Create Organisation
+      security:
+      - apiKey: []
+      - clientCredentials:
+        - organisations:write
       tags:
-      - APIs
+      - Private endpoints
+      summary: Organisatie aanmaken
+      description: Maak een nieuwe organisatie aan.
+      operationId: createOrganisation
+      tags:
+      - Private endpoints
       requestBody:
         content:
           application/json:
@@ -198,16 +201,16 @@ paths:
               $ref: "./schemas/OrganisationSummary.schema.json"
       responses:
         '400':
-          "$ref": "./components/responses.yaml#/400"
+          $ref: "./components/responses.yaml#/400"
         '201':
           headers:
             API-Version:
-              "$ref": "./components/headers.yaml#/API-Version"
+              $ref: "./components/headers.yaml#/API-Version"
           description: Created
           content:
             application/json:
               schema:
-                "$ref": "./schemas/Api.schema.json"
+                $ref: "./schemas/Organisation.schema.json"
 components:
   securitySchemes:
     apiKey:
@@ -222,6 +225,12 @@ components:
             apis:read: Leestoegang op API's
             apis:write: Schrijftoegang op API's
             organisations:read: Leestoegang op organisaties
+            organisations:write: Schrijftoegang op organisaties
+            tools: Toegang tot tools
+            repositories:read: Leestoegang op repositories
+            repositories:write: Schrijftoegang op repositories
+            gitOrganisations:read: Leestoegang op git organisaties
+            gitOrganisations:write: Schrijftoegang op git organisaties
           tokenUrl: https://auth.developer.overheid.nl/realms/don/protocol/openid-connect/token
 security:
 - clientCredentials: []
