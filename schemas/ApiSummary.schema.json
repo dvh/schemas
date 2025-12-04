@@ -37,29 +37,8 @@
       "examples": [85]
     },
     "lifecycle": {
-      "type": "object",
-      "description": "The lifecycle status of the API",
-      "properties": {
-        "status": {
-          "type": "string",
-          "description": "The lifecycle status",
-          "enum": ["active", "deprecated", "sunset", "retired"],
-          "examples": ["active", "deprecated", "sunset", "retired"]
-        },
-        "version": {
-          "type": "string",
-          "description": "The version of the API",
-          "examples": ["1.0.0"]
-        },
-        "from": {
-          "type": ["string", "null"],
-          "format": "date",
-          "description": "The date from which the lifecycle status is/has been deprecated, sunset or retired.",
-          "examples": ["2023-01-15"]
-        }
-      },
-      "required": ["status", "version"]
-    }
+      "$ref": "./Lifecycle.schema.json"
+   }
   },
-  "required": ["id", "contact", "title", "description", "organisation", "adrScore", "oasUrl", "lifecycle"]
+  "required": ["id", "contact", "title", "description", "organisation", "adrScore", "lifecycle"]
 }

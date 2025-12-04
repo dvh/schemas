@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/Lifecycle.schema.json",
+  "title": "Lifecycle",
+  "description": "The lifecycle status of the API",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "The lifecycle status",
+      "enum": ["active", "deprecated", "sunset", "retired"],
+      "examples": ["deprecated", "sunset", "retired"]
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of the API",
+      "examples": ["1.0.0"]
+    },
+    "from": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "The date from which the lifecycle status is/has been deprecated, sunset or retired.",
+      "examples": ["2025-01-15"]
+    }
+  },
+  "required": ["status", "version"]
+}

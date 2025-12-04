@@ -11,7 +11,7 @@ Link:
   description: "Links to the previous, next, last or first pages"
   schema:
     type: string
-    example: <https://developer.overheid.nl/api/v1/apis?page=2>; rel='prev', <https://developer.overheid.nl/api/v1/apis?page=3>; rel='next'
+    example: <https://api.developer.overheid.nl/api-register/v1/apis?page=2>; rel='prev', <https://api.developer.overheid.nl/api-register/v1/apis?page=3>; rel='next'
     externalDocs:
       description: W3C reference
       url: https://www.w3.org/wiki/LinkHeader

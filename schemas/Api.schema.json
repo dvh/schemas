@@ -13,7 +13,7 @@
       "properties": {
         "oasUrl": {
           "description": "The URL of the OAS document",
-          "type": "string",
+          "type": ["string", "null"],
           "format": "uri",
           "examples": [
             "https://api.developer.overheid.nl/api-register/v1/openapi.json"
@@ -28,7 +28,7 @@
           }
         },
         "docsUrl": {
-          "type": "string",
+          "type": ["string", "null"],
           "description": "The URL to the documentation of the API",
           "format": "uri",
           "examples": ["https://developer.overheid.nl/kennisbank/"]
@@ -43,7 +43,7 @@
                 "type": "string",
                 "format": "uri",
                 "description": "The URL of the server",
-                "examples": ["https://api.developer.overheid.nl"]
+                "examples": ["https://api.developer.overheid.nl/api-register/v1"]
               },
               "description": {
                 "type": "string",
@@ -55,7 +55,7 @@
           }
         }
       },
-      "required": ["auth", "docsUrl", "servers"]
+      "required": ["oasUrl","auth", "docsUrl", "servers"]
     }
   ]
 }

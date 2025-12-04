@@ -85,7 +85,7 @@ paths:
           schema:
             type: string
             example: >-
-              9fd3f7b1-7d79-4f41-bf8f-4a1b0a3b0d11,7cfdde0b-5a0d-41a4-a2f8-c2a4cb1b158a
+              dicF0B3HR,diC1D4EHR
       responses:
         "400":
           $ref: "./components/responses.yaml#/400"
